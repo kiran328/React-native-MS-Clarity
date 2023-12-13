@@ -63,7 +63,7 @@ function CustomDrawerContent({drawerPosition, navigation}: any): ReactElement {
   );
 }
 
-function Navigator(): ReactElement {
+function Navigator(props: any): ReactElement {
   return (
     <Drawer.Navigator
       // eslint-disable-next-line react/no-unstable-nested-components

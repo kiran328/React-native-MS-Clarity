@@ -1,19 +1,17 @@
 import Button from '../shared/Button';
 import type {DefaultNavigationProps} from '../../types';
-import React from 'react';
-import {View} from 'react-native';
+import React, {useContext} from 'react';
+import {View, Text} from 'react-native';
 import styled from 'styled-components/native';
+
+import {AppCtx} from '../navigation/SwitchNavigator';
 
 const Container = styled.View`
   flex: 1;
-  align-self: stretch;
-  overflow: scroll;
-  background-color: ${({theme}): string => theme.background};
-
-  flex-direction: column;
-  justify-content: flex-start;
+  flex-direction: row;
   align-items: center;
-  overflow: hidden;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 const ButtonWrapper = styled.View`
@@ -24,60 +22,38 @@ const ButtonWrapper = styled.View`
   align-self: center;
 `;
 
+const StyledText = styled.Text`
+  font-size: 16px;
+  color: blue;
+  margin-bottom: 8px;
+`;
+
 interface Props {
   navigation: DefaultNavigationProps<'Intro'>;
 }
 
-function Intro(props: Props): React.ReactElement {
+function Intro(props: any): React.ReactElement {
+  const ctx: any = useContext(AppCtx);
+
   return (
     <Container>
-      <ButtonWrapper>
-        <View style={{marginTop: 8}} />
-        <Button
-          testID="btnStack"
-          style={{
-            marginBottom: 8,
-          }}
-          onClick={(): void => props.navigation.navigate('StackNavigator')}
-          text="Stack Navigator"
-        />
-        <Button
-          testID="btnDrawer"
-          style={{
-            marginBottom: 8,
-          }}
-          onClick={(): void => props.navigation.navigate('DrawerNavigator')}
-          text="Drawer Navigator"
-        />
-        <Button
-          testID="btnTabs"
-          style={{
-            marginBottom: 8,
-          }}
-          onClick={(): void => props.navigation.navigate('BottomTabNavigator')}
-          text="BottomTab Navigator"
-        />
-        <Button
-          testID="btnTabs"
-          style={{
-            marginBottom: 8,
-          }}
-          onClick={(): void =>
-            props.navigation.navigate('MaterialTopTabNavigator')
-          }
-          text="MaterialTopTab Navigator"
-        />
-        <Button
-          testID="btnTabs"
-          style={{
-            marginBottom: 8,
-          }}
-          onClick={(): void =>
-            props.navigation.navigate('MaterialBottomTabNavigator')
-          }
-          text="MaterialBottomTab Navigator"
-        />
-      </ButtonWrapper>
+      <View style={{marginTop: 90}} />
+      <StyledText testID="myText">Home</StyledText>
+      <Text style={{fontSize: 33}}>{ctx.tracking[ctx.name]}</Text>
+      <Text style={{fontSize: 17}}>{JSON.stringify(ctx.tracking)}</Text>
+      <Button
+        testID="btnStack"
+        style={{
+          marginTop: 66,
+        }}
+        onClick={(): void =>
+          props.navigation.navigate('StackNavigator', {
+            extra: props.extraData,
+            name: props.name,
+          })
+        }
+        text="Navigate to Profile"
+      />
     </Container>
   );
 }

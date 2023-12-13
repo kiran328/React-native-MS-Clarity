@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {initialize} from 'react-native-clarity';
+
 import RootNavigator from './components/navigation/SwitchNavigator';
 import RootProvider from './providers';
 
 function App(): React.ReactElement {
+  useEffect(() => {
+    console.log('MS clarity initiated');
+    initialize('k540d6vt1j');
+  }, []);
+
   return <RootNavigator />;
 }
 

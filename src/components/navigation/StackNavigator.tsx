@@ -8,8 +8,10 @@ import {useThemeContext} from '../../providers/ThemeProvider';
 
 const Stack = createNativeStackNavigator();
 
-function RootNavigator(): React.ReactElement {
+function RootNavigator(props: any): React.ReactElement {
   const {theme} = useThemeContext();
+
+
 
   return (
     <Stack.Navigator
@@ -20,10 +22,12 @@ function RootNavigator(): React.ReactElement {
         headerTitleStyle: {color: theme.fontColor},
         headerTintColor: theme.tintColor,
       }}>
-      <Stack.Screen name="Screen1" component={Screen1} />
-      <Stack.Screen name="Screen2" component={Screen2} />
-      <Stack.Screen name="Screen3" component={Screen3} />
-      <Stack.Screen name="Screen4" component={Screen4} />
+      <Stack.Screen name="Profile">
+        {(props) => <Screen1 {...props} extraData={{}} />}
+      </Stack.Screen>
+      <Stack.Screen name="Settings">
+        {(props) => <Screen2 {...props} extraData={{}} />}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 }

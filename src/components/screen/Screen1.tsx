@@ -1,11 +1,13 @@
 import Button from '../shared/Button';
-import React from 'react';
+import React, { useContext } from 'react';
 import type {ReactElement} from 'react';
 import styled from 'styled-components/native';
+import { Text } from 'react-native';
+
+import { AppCtx } from '../navigation/SwitchNavigator';
 
 const Container = styled.View`
   flex: 1;
-  background-color: orange;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -18,14 +20,21 @@ const StyledText = styled.Text`
   margin-bottom: 8px;
 `;
 
-function Page(): ReactElement {
+function Page(props: any): ReactElement {
+  const ctx: any = useContext(AppCtx)
+
   return (
     <Container>
-      <StyledText testID="myText">Screen 1</StyledText>
+      <StyledText testID="myText">{ctx.name}</StyledText>
+      <Text style={{ fontSize: 33 }}>{ctx.tracking[ctx.name]}</Text>
+      <Text style={{ fontSize: 17 }}>{JSON.stringify(ctx.tracking)}</Text>
       <Button
         testID="btn3"
-        // onClick={(): void => navigation.navigate('Screen2')}
-        text="Navigate to screen2"
+        style={{
+          marginTop: 66,
+        }}
+        onClick={(): void => props.navigation.navigate('Settings')}
+        text="Navigate to Settings"
       />
     </Container>
   );
